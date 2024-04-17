@@ -4,6 +4,14 @@
 
 This is a layered startup solution based on [Domain Driven Design (DDD)](https://docs.abp.io/en/abp/latest/Domain-Driven-Design) practises. All the fundamental ABP modules are already installed. 
 
+## Creating the solution
+
+This solution was created at the command line with the following ```abp``` CLI command:
+
+```bash
+abp new AbpFullCalendar -t app -u mvc -d ef -dbms Postgresql --mobile none --connection-string "Host=bogusHost;Port=5432;Database=Calendar;Username=postgres;Password=bogusPassword;"
+```
+
 ### Pre-requirements
 
 * [.NET 8.0+ SDK](https://dotnet.microsoft.com/download/dotnet)

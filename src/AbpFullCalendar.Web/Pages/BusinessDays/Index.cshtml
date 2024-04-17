@@ -10,18 +10,7 @@
 @section scripts
 {
     <abp-script src="/libs/fullcalendar/index.global.js" />
-    <abp-script src="/Pages/BusinessDays/Index.cshtml.js"></abp-script>
-    <script>
-        var l = abp.localization.getResource('AbpFullCalendar');
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarDiv = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarDiv, {
-                initialView: 'dayGridMonth'
-           });
-
-           calendar.render();
-        });
-    </script>
+    <abp-script src="/Pages/BusinessDays/Index.cshtml.js" />
 }
 <abp-card>
     <abp-card-header>

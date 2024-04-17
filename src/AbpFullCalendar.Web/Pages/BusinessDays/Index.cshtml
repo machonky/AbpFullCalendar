@@ -1,0 +1,37 @@
+﻿@page
+@using AbpFullCalendar.Web.Pages.BusinessDays
+@using AbpFullCalendar.Permissions
+@using Microsoft.Extensions.Localization
+@using AbpFullCalendar.Localization
+@using Microsoft.AspNetCore.Authorization
+@model IndexModel
+@inject IStringLocalizer<AbpFullCalendarResource> L
+@inject IAuthorizationService AuthorizationService
+@section scripts
+{
+    <abp-script src="/Pages/BusinessDays/Index.cshtml.js" />
+}
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Menu:BusinessDays"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                @if (await AuthorizationService.IsGrantedAsync(AbpFullCalendarPermissions.BusinessDays.Create))
+                {
+                    <abp-button id="NewBusinessDayButton"
+                                text="@L["NewBusinessDay"].Value"
+                                icon="plus"
+                                button-type="Primary" />
+                }
+            </abp-column>
+        </abp-row>
+        <h2>@L["Menu:BusinessDays"]</h2>
+    </abp-card-header>
+    <abp-card-body>
+        @* Business Day Editor goes here *@
+        <h1>Business Days Calendar</h1>
+        <div id='business_days_calendar'></div>
+    </abp-card-body>
+</abp-card>

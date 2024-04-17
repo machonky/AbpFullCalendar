@@ -3,6 +3,13 @@
   "texts": {
     "Menu:Home": "Home",
     "Welcome": "Welcome",
-    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io."
+    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
+    "Menu:AbpFullCalendar": "Business Management",
+    "Menu:BusinessDays": "Business Days",
+    "Permission:AbpFullCalendar": "Business management",
+    "Permission:AbpFullCalendar.BusinessDays": "Business Day management!",
+    "Permission:AbpFullCalendar.BusinessDays.Create": "Business Day creation!",
+    "Permission:AbpFullCalendar.BusinessDays.Edit": "Business Day editing!",
+    "Permission:AbpFullCalendar.BusinessDays.Delete": "Business Day deletion!"
   }
 }

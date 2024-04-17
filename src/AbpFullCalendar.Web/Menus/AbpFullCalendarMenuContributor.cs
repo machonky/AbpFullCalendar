@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using AbpFullCalendar.Localization;
 using AbpFullCalendar.MultiTenancy;
+using AbpFullCalendar.Permissions;
+using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Identity.Web.Navigation;
 using Volo.Abp.SettingManagement.Web.Navigation;
 using Volo.Abp.TenantManagement.Web.Navigation;
@@ -45,6 +47,20 @@ public class AbpFullCalendarMenuContributor : IMenuContributor
 
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                "AbpFullCalendar",
+                l["Menu:AbpFullCalendar"],
+                icon: "fas fa-shopping-cart"
+                    ).AddItem(
+                        new ApplicationMenuItem(
+                        "AbpFullCalendar.BusinessDays",
+                        l["Menu:BusinessDays"],
+                        url: "/BusinessDays"
+                        ).RequirePermissions(AbpFullCalendarPermissions.BusinessDays.Default)
+                    )
+        );
 
         return Task.CompletedTask;
     }

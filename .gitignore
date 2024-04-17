@@ -263,3 +263,6 @@ src/AbpFullCalendar.Blazor.Server.Tiered/Logs/*
 
 # Use abp install-libs to restore.
 **/wwwroot/libs/*
+
+# Node Module & Web Package Dependencies
+**/node_modules/

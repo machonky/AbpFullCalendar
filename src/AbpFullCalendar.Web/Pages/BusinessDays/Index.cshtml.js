@@ -1,4 +1,6 @@
 $(function () {
+    abp.log.debug('BusinessDays/Index.cshtml.js initialized!');
+
     if (document.readyState !== 'loading') {
         initCalendar();
     } else {

@@ -3,6 +3,7 @@
   "name": "my-app",
   "private": true,
   "dependencies": {
-    "@abp/aspnetcore.mvc.ui.theme.leptonxlite": "~3.1.1"
+    "@abp/aspnetcore.mvc.ui.theme.leptonxlite": "~3.1.1",
+    "fullcalendar": "^6.1.11"
   }
 }

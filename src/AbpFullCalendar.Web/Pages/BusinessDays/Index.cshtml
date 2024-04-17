@@ -9,13 +9,25 @@
 @inject IAuthorizationService AuthorizationService
 @section scripts
 {
-    <abp-script src="/Pages/BusinessDays/Index.cshtml.js" />
+    <abp-script src="/libs/fullcalendar/index.global.js" />
+    <abp-script src="/Pages/BusinessDays/Index.cshtml.js"></abp-script>
+    <script>
+        var l = abp.localization.getResource('AbpFullCalendar');
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarDiv = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarDiv, {
+                initialView: 'dayGridMonth'
+           });
+
+           calendar.render();
+        });
+    </script>
 }
 <abp-card>
     <abp-card-header>
         <abp-row>
             <abp-column size-md="_6">
-                <abp-card-title>@L["Menu:BusinessDays"]</abp-card-title>
+                @* <abp-card-title>@L["Menu:BusinessDays"]</abp-card-title> *@
             </abp-column>
             <abp-column size-md="_6" class="text-end">
                 @if (await AuthorizationService.IsGrantedAsync(AbpFullCalendarPermissions.BusinessDays.Create))
@@ -30,8 +42,6 @@
         <h2>@L["Menu:BusinessDays"]</h2>
     </abp-card-header>
     <abp-card-body>
-        @* Business Day Editor goes here *@
-        <h1>Business Days Calendar</h1>
-        <div id='business_days_calendar'></div>
+        <div id='calendar'></div>
     </abp-card-body>
 </abp-card>

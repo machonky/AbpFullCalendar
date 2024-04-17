@@ -10,7 +10,7 @@ $(function () {
     function initCalendar() {
         var l = abp.localization.getResource('AbpFullCalendar');
 
-        var calendarDiv = document.getElementById('calendar');
+        var calendarDiv = document.getElementById('business_day_calendar');
         var calendar = new FullCalendar.Calendar(calendarDiv, {
             initialView: 'dayGridMonth'
         });

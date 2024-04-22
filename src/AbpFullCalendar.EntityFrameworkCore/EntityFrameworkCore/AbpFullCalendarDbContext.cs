@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AbpFullCalendar.BusinessDays;
+using MacRobert.EntityFrameworkCore.StronglyTypedIds.ValueConversion;
+using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -50,6 +52,7 @@ public class AbpFullCalendarDbContext :
     // Tenant Management
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
+    public DbSet<BusinessDay> BusinessDays { get; set; }
 
     #endregion
 
@@ -75,6 +78,9 @@ public class AbpFullCalendarDbContext :
         builder.ConfigureTenantManagement();
 
         /* Configure your own tables/entities inside here */
+        
+
+        builder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
 
         //builder.Entity<YourEntity>(b =>
         //{
@@ -82,5 +88,11 @@ public class AbpFullCalendarDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+    }
+
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        base.ConfigureConventions(configurationBuilder);
+        configurationBuilder.ConfigureStronglyTypedIds<int>(new[] { Domain.AssemblyReference.Assembly });
     }
 }

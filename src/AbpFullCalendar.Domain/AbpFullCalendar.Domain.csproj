@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MacRobert.StronglyTypedIds" Version="1.0.17" />
     <PackageReference Include="Volo.Abp.Emailing" Version="8.1.1" />
     <PackageReference Include="Volo.Abp.Identity.Domain" Version="8.1.1" />
     <PackageReference Include="Volo.Abp.PermissionManagement.Domain.Identity" Version="8.1.1" />

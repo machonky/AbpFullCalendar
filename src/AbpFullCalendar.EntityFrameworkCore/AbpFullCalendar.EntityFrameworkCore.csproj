@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AbpFullCalendar.Domain\AbpFullCalendar.Domain.csproj" />
+    <PackageReference Include="Humanizer" Version="2.14.1" />
+    <PackageReference Include="MacRobert.EntityFrameworkCore.StronglyTypedIds" Version="1.0.17" />
     <PackageReference Include="Volo.Abp.EntityFrameworkCore.PostgreSql" Version="8.1.1" />
     <PackageReference Include="Volo.Abp.PermissionManagement.EntityFrameworkCore" Version="8.1.1" />
     <PackageReference Include="Volo.Abp.SettingManagement.EntityFrameworkCore" Version="8.1.1" />

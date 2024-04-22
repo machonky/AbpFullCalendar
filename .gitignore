@@ -266,4 +266,5 @@ src/AbpFullCalendar.Blazor.Server.Tiered/Logs/*
 
 # Node Module & Web Package Dependencies
 **/node_modules/
-/src/AbpFullCalendar.DbMigrator/appsettings.json
+#/src/AbpFullCalendar.DbMigrator/appsettings.json
+/src/AbpFullCalendar.DbMigrator/appsettings.secrets.json

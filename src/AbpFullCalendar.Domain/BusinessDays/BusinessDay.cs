@@ -4,11 +4,13 @@ using Volo.Abp.MultiTenancy;
 
 namespace AbpFullCalendar.BusinessDays;
 
-public class BusinessDay : FullAuditedAggregateRoot<Guid>, IMultiTenant
+public class BusinessDay : CreationAuditedAggregateRoot<Guid>, IMultiTenant
 {
     public BusinessDay(Guid id) : base(id)
     {
     }
+
+    protected BusinessDay() { }
 
     public virtual BusinessDayKey? BusinessDayId { get; set; }
 

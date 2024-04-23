@@ -58,7 +58,7 @@ public class AbpFullCalendarMenuContributor : IMenuContributor
                         "AbpFullCalendar.BusinessDays",
                         l["Menu:BusinessDays"],
                         url: "/BusinessDays"
-                        ).RequirePermissions(AbpFullCalendarPermissions.BusinessDays.Default)
+                        )//.RequirePermissions(AbpFullCalendarPermissions.BusinessDays.Default)
                     )
         );
 

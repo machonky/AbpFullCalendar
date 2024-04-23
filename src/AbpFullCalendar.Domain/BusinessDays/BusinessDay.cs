@@ -6,6 +6,10 @@ namespace AbpFullCalendar.BusinessDays;
 
 public class BusinessDay : FullAuditedAggregateRoot<Guid>, IMultiTenant
 {
+    public BusinessDay(Guid id) : base(id)
+    {
+    }
+
     public virtual BusinessDayKey? BusinessDayId { get; set; }
 
     public virtual Guid? TenantId { get; set; }

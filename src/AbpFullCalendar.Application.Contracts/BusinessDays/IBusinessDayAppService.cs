@@ -1,11 +1,10 @@
-﻿using AbpFullCalendar.BusinessDays;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 
-namespace AbpFullCalendar;
+namespace AbpFullCalendar.BusinessDays;
 
 public interface IBusinessDayAppService : IApplicationService
 {

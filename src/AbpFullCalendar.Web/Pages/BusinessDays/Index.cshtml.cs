@@ -21,17 +21,5 @@ namespace AbpFullCalendar.Web.Pages.BusinessDays
         public void OnGet()
         {
         }
-
-        public async Task<IActionResult> OnGetBusinessDays(DateTime start, DateTime end)
-        {
-            logger.LogInformation($"Getting Business Days from {start.ToString("yyyy-MM-dd")} to {end.ToString("yyyy-MM-dd")}");
-            return new JsonResult(await businessDayAppService.GetBusinessDaysAsync(start, end));
-        }
-
-        public async Task<IActionResult> OnPostSelectedEvents([FromBody] SelectedBusinessDayEventsDto data)
-        {
-            await businessDayAppService.StoreBusinessDaysAsync(data);
-            return new JsonResult(new { success = true });
-        }
     }
 }

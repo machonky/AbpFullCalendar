@@ -9,5 +9,5 @@ namespace AbpFullCalendar.BusinessDays;
 public interface IBusinessDayAppService : IApplicationService
 {
     Task<IList<BusinessDayEventDto>> GetBusinessDaysAsync(DateTime start, DateTime end);
-    Task StoreBusinessDaysAsync(SelectedBusinessDayEventsDto selectedBusinessDays);
+    Task<StoredBusinessDayEventsResultDto> StoreBusinessDaysAsync(SelectedBusinessDayEventsDto selectedBusinessDays);
 }

@@ -22,47 +22,33 @@ $(function () {
             initialView: 'dayGridMonth',
             editable: false, // Don't allow to modify events on the UI
             selectable: true, // Allow multiple selection of dates
-            events: requestEventsAjax
-            , select: selectAjaxCallback
+            events: requestEvents,
+            select: selectAjaxCallback
         });
 
-        var endpoint = "BusinessDays";
-
-        function requestEventsAjax(fetchInfo, successCallback, failureCallback) {
+        function requestEvents(fetchInfo, successCallback, failureCallback) {
             // Get the start and end dates of the visible date range
             var startDate = fetchInfo.start.toISOString();
             var endDate = fetchInfo.end.toISOString();
 
-            fetch(`/BusinessDays?handler=BusinessDays&start=${startDate}&end=${endDate}`)
-            //abp.ajax({
-            //    type: 'GET',
-            //    url: `/BusinessDays?handler=BusinessDays&start=${startDate}&end=${endDate}`
-            //})
-            .then(response => response.json())
-            .then(data => {
-                successCallback(data);
-            })
-            .catch(error => {
-                failureCallback(error);
-            });
+            // Use the JS Dynamic Proxy to the app service
+            abpFullCalendar.businessDays.businessDay
+                .getBusinessDays(startDate, endDate)
+                .then(data => {
+                    successCallback(data);
+                })
+                .catch(error => {
+                    failureCallback(error);
+                });
         };
 
         function selectAjaxCallback(info) {
             var startDate = info.startStr;
             var endDate = info.endStr;
 
-            // Anti forgery token is essential for AJAX posting
-            var token = document.querySelector('input[name="__RequestVerificationToken"]').value;
-
-            fetch('/BusinessDays?handler=SelectedEvents', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'RequestVerificationToken': token
-                },
-                body: JSON.stringify({ startDate: startDate, endDate: endDate })
-                })
-                .then(response => response.json())
+            // Use the JS Dynamic Proxy to the app service
+            abpFullCalendar.businessDays.businessDay
+                .storeBusinessDays({ startDate: startDate, endDate: endDate })
                 .then(data => {
                     if (data.success) {
                         // Refetch the events and rerender the calendar

@@ -43,7 +43,7 @@ public class BusinessDayAppService : AbpFullCalendarAppService, IBusinessDayAppS
         }).ToList();
     }
 
-    public async Task StoreBusinessDaysAsync([FromBody] SelectedBusinessDayEventsDto selectedBusinessDays)
+    public async Task<StoredBusinessDayEventsResultDto> StoreBusinessDaysAsync([FromBody] SelectedBusinessDayEventsDto selectedBusinessDays)
     {
         var startDate = selectedBusinessDays.StartDate;
         var endDate = selectedBusinessDays.EndDate;
@@ -70,5 +70,7 @@ public class BusinessDayAppService : AbpFullCalendarAppService, IBusinessDayAppS
                 await businessDayRepository.InsertAsync(newBusinessDay);
             }
         }
+
+        return new StoredBusinessDayEventsResultDto { Success = true };
     }
 }

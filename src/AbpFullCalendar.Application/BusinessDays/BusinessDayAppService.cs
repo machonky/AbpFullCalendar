@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
@@ -25,21 +26,20 @@ public class BusinessDayAppService : AbpFullCalendarAppService, IBusinessDayAppS
 
     public async Task<IList<BusinessDayEventDto>> GetBusinessDaysAsync(DateTime start, DateTime end)
     {
+        logger.LogInformation($"Getting Business days from {start} to {end}");
+
         var startKey = start.ToDateKey();
         var endKey = end.ToDateKey();
 
-        IQueryable<BusinessDay> queryable = await businessDayRepository.GetQueryableAsync();
-        queryable
-            .Where(x => (x.BusinessDayId != null) && 
-                        (x.BusinessDayId >= startKey) && 
-                        (x.BusinessDayId <= endKey));
-
-        var businessDays = await AsyncExecuter.ToListAsync(queryable);
+        var queryable = await businessDayRepository.GetQueryableAsync();
+        var businessDays = queryable
+            .Where(x => x.BusinessDayId >= startKey && x.BusinessDayId <= endKey)
+            .ToList();
 
         return businessDays.Select(x => new BusinessDayEventDto
         {
-            id = x.BusinessDayId!.Value.ToString(),
-            start = x.BusinessDayId!.FromDateKey().ToString("yyyy-MM-dd")
+            id = x.BusinessDayId.ToString(),
+            start = x.BusinessDayId.FromDateKey().ToString("yyyy-MM-dd")
         }).ToList();
     }
 
@@ -47,6 +47,8 @@ public class BusinessDayAppService : AbpFullCalendarAppService, IBusinessDayAppS
     {
         var startDate = selectedBusinessDays.StartDate;
         var endDate = selectedBusinessDays.EndDate;
+
+        logger.LogInformation($"Storing Business days from {startDate} to {endDate}");
 
         var selectedDateKeys = Enumerable.Range(0, (endDate - startDate).Days)
             .Select(offset => startDate.AddDays(offset))

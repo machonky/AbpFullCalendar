@@ -7,8 +7,7 @@ namespace AbpFullCalendar.BusinessDays;
 public class BusinessDay : CreationAuditedAggregateRoot<Guid>, IMultiTenant
 {
     public BusinessDay(Guid id) : base(id)
-    {
-    }
+    {}
 
     protected BusinessDay() { }
 

@@ -50,26 +50,28 @@ public class BusinessDayAppService : AbpFullCalendarAppService, IBusinessDayAppS
 
         var selectedDateKeys = Enumerable.Range(0, (endDate - startDate).Days)
             .Select(offset => startDate.AddDays(offset))
-            .Select(d => d.ToDateKey())
+            .Select(d => d.ToDateKey()).ToList();
+
+        // We're going to XOR business days. 
+        var queryable = await businessDayRepository.GetQueryableAsync();
+
+        // Identify days to remove in bulk...
+        var daysToRemove = queryable
+            .Where(b => selectedDateKeys.Contains(b.BusinessDayId))
             .ToList();
 
-        foreach (var dateKey in selectedDateKeys)
+        // ... and remove them
+        await businessDayRepository.DeleteManyAsync(daysToRemove.Select(d => d.Id));
+
+        // Identify days to add in bulk...
+        var dateKeysToAdd = selectedDateKeys.Except(daysToRemove.Select(d => d.BusinessDayId)).ToList();
+        var newEntities = dateKeysToAdd.Select(d => new BusinessDay(guidGenerator.Create())
         {
-            var existingBusinessDay = await businessDayRepository.FirstOrDefaultAsync(bd => bd.BusinessDayId == dateKey);
-            if (existingBusinessDay != null)
-            {
-                await businessDayRepository.DeleteAsync(existingBusinessDay);
-            }
-            else
-            {
-                var newBusinessDay = new BusinessDay(guidGenerator.Create())
-                {
-                    BusinessDayId = dateKey,
-                    TenantId = CurrentTenant.Id,
-                };
-                await businessDayRepository.InsertAsync(newBusinessDay);
-            }
-        }
+            BusinessDayId = d,
+            TenantId = CurrentTenant.Id,
+        });
+        // ... and add them
+        await businessDayRepository.InsertManyAsync(newEntities);
 
         return new StoredBusinessDayEventsResultDto { Success = true };
     }

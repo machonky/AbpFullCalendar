@@ -23,7 +23,7 @@ $(function () {
             editable: false, // Don't allow to modify events on the UI
             selectable: true, // Allow multiple selection of dates
             events: requestEvents,
-            select: selectAjaxCallback
+            select: selectCallback
         });
 
         function requestEvents(fetchInfo, successCallback, failureCallback) {
@@ -42,7 +42,7 @@ $(function () {
                 });
         };
 
-        function selectAjaxCallback(info) {
+        function selectCallback(info) {
             var startDate = info.startStr;
             var endDate = info.endStr;
 

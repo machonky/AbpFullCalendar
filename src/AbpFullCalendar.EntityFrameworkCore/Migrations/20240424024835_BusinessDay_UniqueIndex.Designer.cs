@@ -3,6 +3,7 @@ using System;
 using AbpFullCalendar.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Volo.Abp.EntityFrameworkCore;
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace AbpFullCalendar.Migrations
 {
     [DbContext(typeof(AbpFullCalendarDbContext))]
-    partial class AbpFullCalendarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240424024835_BusinessDay_UniqueIndex")]
+    partial class BusinessDay_UniqueIndex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

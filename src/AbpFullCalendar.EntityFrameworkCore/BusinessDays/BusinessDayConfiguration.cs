@@ -13,7 +13,7 @@ public class BusinessDayConfiguration : IEntityTypeConfiguration<BusinessDay>
         b.ToTable(AbpFullCalendarConsts.DbTablePrefix+nameof(BusinessDay).Pluralize(), AbpFullCalendarConsts.DbSchema);
         b.HasKey(b => b.Id);
         b.ConfigureByConvention();
-        b.HasAlternateKey(b => new { b.BusinessDayId, b.TenantId });
+        b.HasIndex(b => new { b.BusinessDayId, b.TenantId }).IsUnique(); // Change from alternetkey to unique key permits the host to store days too since tenantId == null
         b.HasIndex(b => b.TenantId);
     }
 }

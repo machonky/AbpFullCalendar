@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Guids;
+using Volo.Abp.Timing;
 
 namespace AbpFullCalendar.BusinessDays;
 
@@ -16,12 +17,14 @@ public class BusinessDayAppService : AbpFullCalendarAppService, IBusinessDayAppS
     private readonly IRepository<BusinessDay, Guid> businessDayRepository;
     private readonly ILogger<BusinessDayAppService> logger;
     private readonly IGuidGenerator guidGenerator;
+    private readonly IClock clock;
 
-    public BusinessDayAppService(IRepository<BusinessDay, Guid> businessDayRepository, ILogger<BusinessDayAppService> logger, IGuidGenerator guidGenerator)
+    public BusinessDayAppService(IRepository<BusinessDay, Guid> businessDayRepository, ILogger<BusinessDayAppService> logger, IGuidGenerator guidGenerator, IClock clock)
     {
         this.businessDayRepository = businessDayRepository;
         this.logger = logger;
         this.guidGenerator = guidGenerator;
+        this.clock = clock;
     }
 
     public async Task<IList<BusinessDayEventDto>> GetBusinessDaysAsync(DateTime start, DateTime end)
@@ -41,6 +44,12 @@ public class BusinessDayAppService : AbpFullCalendarAppService, IBusinessDayAppS
             id = x.BusinessDayId.ToString(),
             start = x.BusinessDayId.FromDateKey().ToString("yyyy-MM-dd")
         }).ToList();
+    }
+
+    public Task<MinimumSelectedBusinessDateDto> GetMinSelectableBusinessDateAsync()
+    {
+        var result = new MinimumSelectedBusinessDateDto { Date = clock.Now.ToLocalTime().Date.ToString() };
+        return Task.FromResult(result);
     }
 
     public async Task<StoredBusinessDayEventsResultDto> StoreBusinessDaysAsync([FromBody] SelectedBusinessDayEventsDto selectedBusinessDays)

@@ -52,13 +52,14 @@ public class AbpFullCalendarMenuContributor : IMenuContributor
             new ApplicationMenuItem(
                 "AbpFullCalendar",
                 l["Menu:AbpFullCalendar"],
-                icon: "fas fa-shopping-cart"
+                icon: "fas fa-database"
                     ).AddItem(
                         new ApplicationMenuItem(
-                        "AbpFullCalendar.BusinessDays",
-                        l["Menu:BusinessDays"],
-                        url: "/BusinessDays"
-                        )//.RequirePermissions(AbpFullCalendarPermissions.BusinessDays.Default)
+                            "AbpFullCalendar.BusinessDays",
+                            l["Menu:BusinessDays"],
+                            url: "/BusinessDays",
+                            icon: "fas fa-calendar"
+                        ).RequirePermissions(AbpFullCalendarPermissions.BusinessDays.Default)
                     )
         );
 

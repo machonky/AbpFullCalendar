@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
+using AbpFullCalendar.Permissions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Volo.Abp.Domain.Repositories;
@@ -18,13 +20,19 @@ public class BusinessDayAppService : AbpFullCalendarAppService, IBusinessDayAppS
     private readonly ILogger<BusinessDayAppService> logger;
     private readonly IGuidGenerator guidGenerator;
     private readonly IClock clock;
+    private readonly IAuthorizationService authorizationService;
 
-    public BusinessDayAppService(IRepository<BusinessDay, Guid> businessDayRepository, ILogger<BusinessDayAppService> logger, IGuidGenerator guidGenerator, IClock clock)
+    public BusinessDayAppService(IRepository<BusinessDay, Guid> businessDayRepository, 
+                                 ILogger<BusinessDayAppService> logger, 
+                                 IGuidGenerator guidGenerator, 
+                                 IClock clock,
+                                 IAuthorizationService authorizationService)
     {
         this.businessDayRepository = businessDayRepository;
         this.logger = logger;
         this.guidGenerator = guidGenerator;
         this.clock = clock;
+        this.authorizationService = authorizationService;
     }
 
     public async Task<IList<BusinessDayEventDto>> GetBusinessDaysAsync(DateTime start, DateTime end)
@@ -46,10 +54,15 @@ public class BusinessDayAppService : AbpFullCalendarAppService, IBusinessDayAppS
         }).ToList();
     }
 
-    public Task<MinimumSelectedBusinessDateDto> GetMinSelectableBusinessDateAsync()
+    public async Task<CalendarConfigDto> GetCalendarConfigAsync()
     {
-        var result = new MinimumSelectedBusinessDateDto { Date = clock.Now.ToLocalTime().Date.ToString() };
-        return Task.FromResult(result);
+        var result = new CalendarConfigDto 
+        { 
+            MinSelectionDate = clock.Now.ToLocalTime().Date,
+            UserRoleCanEdit = await authorizationService.IsGrantedAsync(AbpFullCalendarPermissions.BusinessDays.Edit)
+        };
+
+        return result;
     }
 
     public async Task<StoredBusinessDayEventsResultDto> StoreBusinessDaysAsync([FromBody] SelectedBusinessDayEventsDto selectedBusinessDays)

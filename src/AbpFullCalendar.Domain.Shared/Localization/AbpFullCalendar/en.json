@@ -6,10 +6,12 @@
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
     "Menu:AbpFullCalendar": "Data Management",
     "Menu:BusinessDays": "Business Days",
-    "Permission:AbpFullCalendar": "Business management",
-    "Permission:AbpFullCalendar.BusinessDays": "Business Day management!",
-    "Permission:AbpFullCalendar.BusinessDays.Create": "Business Day creation!",
-    "Permission:AbpFullCalendar.BusinessDays.Edit": "Business Day editing!",
-    "Permission:AbpFullCalendar.BusinessDays.Delete": "Business Day deletion!"
+    "Button:BusinessDaysEdit": "Editable",
+    "Button:BusinessDaysDefault": "View only",
+    "Permission:AbpFullCalendar": "Data management",
+    "Permission:AbpFullCalendar.BusinessDays": "Business Day management",
+    "Permission:AbpFullCalendar.BusinessDays.Create": "Business Day creation",
+    "Permission:AbpFullCalendar.BusinessDays.Edit": "Business Day editing",
+    "Permission:AbpFullCalendar.BusinessDays.Delete": "Business Day deletion"
   }
 }

@@ -12,12 +12,12 @@ $(function () {
     function initCalendar() {
         var l = abp.localization.getResource('AbpFullCalendar');
 
-        var minSelectableDate = null;
-        abpFullCalendar.businessDays.businessDay.getMinSelectableBusinessDate()
-            .then(data => {
-                minSelectableDate = new Date(data.date);
+        var calendarConfig = null;
+        abpFullCalendar.businessDays.businessDay.getCalendarConfig()
+            .then( data => {
+                calendarConfig = data;
             })
-            .then(_ => {
+            .then( _ => {
                 initCalendarContinuation();
             })
             .catch(error => {
@@ -45,7 +45,11 @@ $(function () {
                 // Dynamically determine if a cell can be selected.
                 // https://fullcalendar.io/docs/selectAllow
 
-                return selectInfo.start > minSelectableDate;
+                if (!calendarConfig.userRoleCanEdit) return false;
+
+                // Make sure we're comparing the same type of Date object
+                var minSelectionDate = new Date(calendarConfig.minSelectionDate);
+                return selectInfo.start > minSelectionDate;
             };
 
             function requestEvents(fetchInfo, successCallback, failureCallback) {

@@ -11,9 +11,11 @@ public class AbpFullCalendarPermissionDefinitionProvider : PermissionDefinitionP
         var groupPermission = context.AddGroup(AbpFullCalendarPermissions.GroupName, L(AbpFullCalendarPermissions.PermissionPrefix + AbpFullCalendarPermissions.GroupName))
         .AddPermission(AbpFullCalendarPermissions.BusinessDays.GroupPrefix, L(AbpFullCalendarPermissions.BusinessDays.Display.Default));
 
-        groupPermission.AddChild(AbpFullCalendarPermissions.BusinessDays.Create, L(AbpFullCalendarPermissions.BusinessDays.Display.Create));
+        //groupPermission.AddChild(AbpFullCalendarPermissions.BusinessDays.Create, L(AbpFullCalendarPermissions.BusinessDays.Display.Create));
+        //groupPermission.AddChild(AbpFullCalendarPermissions.BusinessDays.Edit, L(AbpFullCalendarPermissions.BusinessDays.Display.Edit));
+        //groupPermission.AddChild(AbpFullCalendarPermissions.BusinessDays.Delete, L(AbpFullCalendarPermissions.BusinessDays.Display.Delete));
+
         groupPermission.AddChild(AbpFullCalendarPermissions.BusinessDays.Edit, L(AbpFullCalendarPermissions.BusinessDays.Display.Edit));
-        groupPermission.AddChild(AbpFullCalendarPermissions.BusinessDays.Delete, L(AbpFullCalendarPermissions.BusinessDays.Display.Delete));
     }
 
     private static LocalizableString L(string name)

@@ -268,3 +268,4 @@ src/AbpFullCalendar.Blazor.Server.Tiered/Logs/*
 **/node_modules/
 #/src/AbpFullCalendar.DbMigrator/appsettings.json
 /src/AbpFullCalendar.DbMigrator/appsettings.secrets.json
+/src/AbpFullCalendar.Web/yarn.lock
